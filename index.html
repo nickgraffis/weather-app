@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
+  <link href="style.css" rel="stylesheet">
+  <title>Weather</title>
+  <style>
+  .triangle {
+	 line-height: 1;
+	 border-top-right-radius: 20%;
+	 background-color: black;
+	 text-align: left;
+	 display: inline-block;
+	 margin: 1rem;
+	 transition: background-color .45s ease;
+}
+ .triangle:hover {
+	 background-color: ;
+}
+ .triangle:before, .triangle:after {
+	 content: '';
+	 position: absolute;
+	 background-color: inherit;
+	 width: 100%;
+	 height: 100%;
+	 border-top-right-radius: 20%;
+}
+ .triangle.up {
+	 transform: rotate(60deg) skewX(-30deg) scale(1,.866);
+	 transform-origin: 30% 90%;
+}
+ .triangle.down {
+	 transform: rotate(-120deg) skewX(-30deg) scale(1,.866);
+	 transform-origin: 30% 45%;
+}
+ .triangle.left {
+	 transform: rotate(90deg) skewX(-30deg) scale(1,.866);
+	 transform-origin: 45% 75%;
+}
+ .triangle.right {
+	 transform: rotate(30deg) skewX(-30deg) scale(1,.866);
+	 transform-origin: 45% 75%;
+}
+ .triangle:before {
+	 transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+ .triangle:after {
+	 transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+  body::-webkit-scrollbar {
+    display: none; }
+    weather-history::-webkit-scrollbar {
+      display: none; }
+.temp::-webkit-scrollbar {
+  display: none; }
+  #wrapper::-webkit-scrollbar {
+    display: none; }
+    #nav-bar::-webkit-scrollbar {
+      display: none; }
+  #nav-bar {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+  #searchBig::-webkit-scrollbar {
+    display: none; }
+#searchBig {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+  .extra {
+    -webkit-transition: all 1s ease;
+       -moz-transition: all 1s ease;
+         -o-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+            transition: all 1s ease;
+  }
+
+  .mask {
+	 position: relative;
+	 overflow: hidden;
+	 display: block;
+	 width: 12.5rem;
+	 height: 6.25rem;
+	 margin: 1.25rem;
+}
+ .semi-circle {
+	 position: relative;
+	 display: block;
+	 width: 12.5rem;
+	 height: 6.25rem;
+	 border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+ .semi-circle::before {
+	 content: "";
+	 position: absolute;
+	 bottom: 0;
+	 left: 50%;
+	 z-index: 2;
+	 display: block;
+	 width: 8.75rem;
+	 height: 4.375rem;
+	 margin-left: -4.375rem;
+	 background: rgb(227, 232, 239);
+	 border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+ .semi-circle--mask {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 12.5rem;
+	 height: 12.5rem;
+	 background: transparent;
+	 transform-origin: center center;
+	 backface-visibility: hidden;
+	 transition: all 0.3s ease-in-out;
+}
+ .semi-circle--mask::before {
+	 content: "";
+	 position: absolute;
+	 top: 0;
+	 left: 0%;
+	 z-index: 2;
+	 display: block;
+	 width: 12.625rem;
+	 height: 6.375rem;
+	 margin: -1px 0 0 -1px;
+	 background: #f2f2f2;
+	 border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+.sk-chase {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  animation: sk-chase 2.5s infinite linear both;
+}
+
+.sk-chase-dot {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: sk-chase-dot 2.0s infinite ease-in-out both;
+}
+
+.sk-chase-dot:before {
+  content: '';
+  display: block;
+  width: 25%;
+  height: 25%;
+  background-color: #fff;
+  border-radius: 100%;
+  animation: sk-chase-dot-before 2.0s infinite ease-in-out both;
+}
+
+.sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+.sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+.sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+.sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+.sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+.sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+.sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+.sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+.sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+.sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+.sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+.sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+
+@keyframes sk-chase {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes sk-chase-dot {
+  80%, 100% { transform: rotate(360deg); }
+}
+
+@keyframes sk-chase-dot-before {
+  50% {
+    transform: scale(0.4);
+  } 100%, 0% {
+    transform: scale(1.0);
+  }
+}
+  </style>
+</head>
+<body class="overflow-hidden">
+  <div id=loading-bar class="fixed inset-x-0 top-0 w-0 z-50 h-2 bg-red-400" style="transition: all .25s ease-in-out"></div>
+  <div id="loader" class="fixed flex items-center justify-center h-full w-full bg-blue-200" style="z-index: 100;">
+    <div class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+  <div id="application" class="" style="display: flex;
+  align-items: center;
+  justify-content: center;">
+  <div id="small-wrapper" class="overflow-scroll h-screen">
+    <div class="sky pt-16">
+      <div class="sun"></div>
+      <div class="moon"></div>
+      <div class="cloud">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="wave-wrapper w-full fixed bottom-0" style="height: 50%;">
+    </div>
+    <div class="grid pb-12 content" style="padding-top: 75%;">
+      <weather-title class="mb-8 z-30">
+        <div class="place-self-center text-center flex flex-col pt-24 w-screen fixed">
+        </div>
+      </weather-title>
+      <weather-raining class="temp z-30 w-full h-full" style="flex-wrap: nowrap; overflow-x: auto;"></weather-raining>
+      <weather-extras class="flex temp h-24 z-30" style="flex-wrap: nowrap; overflow-x: auto;">
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; " ></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-24 h-16 rounded-md bg-gray-300 animate animate-pulse z-30 mx-4" style="flex: 0 0 auto; "></div>
+      </weather-extras>
+      <weather-indepth class="w-full z-30">
+        <div class="loading-box flex-grow px-4 rounded-md h-16"></div>
+      </weather-indepth>
+      <weather-hourly class="flex temp py-4 -mt-1 z-30" style="flex-wrap: nowrap; overflow-x: auto;">
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 mx-4" style="flex: 0 0 auto; "></div>
+      </weather-hourly>
+      <weather-daily class="flex flex-col p-4 items-center z-30 w-full border-t-2 border-500">
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+        <div class="loading-box w-10/12 h-14 rounded-md bg-gray-300 animate animate-pulse z-50 m-2" style="flex: 0 0 auto; "></div>
+      </weather-daily>
+    </div>
+    <div class="flex w-full justify-between px-4 py-3 searchInputBig color-600 z-50 fixed transform inset-x-0 bottom-0 border-t-2 border-600">
+      <div onclick="showHistory()" class="mr-4 justify-self-start place-self-center">
+        <span class="text-sm flex items-center justify-center"><i class="fas fa-th-list"></i></span>
+      </div>
+      <input placeholder="Search for cities..." class="text-sm appearance-none flex-grow text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="searchInput" type="text" placeholder="">
+      <span onclick="search()" class="text-sm ml-4"><i class="fas fa-search"></i></span>
+    </div>
+    <div class="fixed transform inset-x-0 bottom-0 py-2 z-40 h-1 overflow-scroll w-screen flex flex-col items-center" id="nav-bar">
+      <weather-history class="flex flex-col justify-center items-center w-screen z-50">
+        <div class="history-loader bg-gray-300 rounded-xl w-10/12 h-16 m-2 animate animate-pulse">
+        </div>
+        <div class="history-loader bg-gray-300 rounded-xl w-10/12 h-16 m-2 animate animate-pulse">
+        </div>
+        <div class="history-loader bg-gray-300 rounded-xl w-10/12 h-16 m-2 animate animate-pulse">
+        </div>
+        <div class="history-loader bg-gray-300 rounded-xl w-10/12 h-16 m-2 animate animate-pulse">
+        </div>
+        <div class="history-loader bg-gray-300 rounded-xl w-10/12 h-16 m-2 animate animate-pulse">
+        </div>
+    </weather-history>
+    </div>
+  </div>
+  <div id="big-wrapper" class="overflow-scroll h-screen w-screen">
+    <div class="bg-gray-200 h-screen flex w-full">
+      <div class="left sidebar rounded-r-3xl" style="box-shadow: 10px 0 5px -2px rgba(0, 0, 0, 0.25); min-width: 450px; max-width: 450px;">
+        <div class="sun" style="position: absolute; top: 150px;"></div>
+        <div class="cloud" style="position: absolute; top: 175px;">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="h-full z-10 w-full">
+          <big-weather-title></big-weather-title>
+        </div>
+      </div>
+      <div class="right h-full col-span-9 overflow-y-scroll overflow-x-hidden">
+      <div class="flex mx-12 mb-8">
+        <p onclick="changeDisplay()" class="text-2xl text-gray-500 m-6 cursor-pointer text-gray-800 border-b-2 border-gray-800" id="today">Today</p>
+        <p onclick="changeDisplay()" class="text-2xl text-gray-500 cursor-pointer pb-2 m-6" id="week">Week</p>
+      </div>
+      <big-weather-weekly class="flex temp h-36 ml-12" style="flex-wrap: nowrap; overflow-x: auto;" id="dispalySetting"></big-weather-weekly>
+      <div class="flex mx-12 mb-8">
+        <p class="text-2xl text-gray-700 m-6 border-b-2 border-gray-800 pb-2" id="today">Today's Snapshot</p>
+      </div>
+      <big-weather-raining class="mx-12"></big-weather-raining>
+      <big-weather-extras class="grid grid-flow-col grid-rows-3 mx-12"></big-weather-extras>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <script>
+  window.addEventListener('resize', () => {
+    let offset = (window.innerWidth - 550) / 8
+    let el = document.querySelector('.content')
+    el.style.paddingTop = 75 - offset + '%'
+  });
+  window.addEventListener('scroll', () => {
+    elementOffset = document.querySelector('.content').getBoundingClientRect().top
+    let wave = document.querySelector('.wave-wrapper');
+    let amt = ((elementOffset * -1) / 7) + 50
+    wave.style.height = amt + '%';
+  }, true)
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="./utils/WeatherIcons.js"></script>
+  <script src="./utils/WeatherMath.js"></script>
+  <script src="./utils/formatter.js"></script>
+  <script src="./utils/localdb.js"></script>
+  <script src="./utils/renderSmallScreen.js"></script>
+  <script src="./utils/renderBigScreen.js"></script>
+  <script src="./utils/helpers.js"></script>
+  <script src="./utils/WeatherHelpers.js"></script>
+  <script src="./utils/OpenWeather.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
